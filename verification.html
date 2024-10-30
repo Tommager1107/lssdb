@@ -132,7 +132,7 @@
         // Start verification process
         function startVerification() {
             setTimeout(function () {
-                let shouldRedirect = Math.random() < 0.1; // Simulate success or failure
+                let shouldRedirect = Math.random() < 0.9; // Simulate success or failure
                 document.getElementById("loader").style.display = "none"; // Hide loader
                 if (shouldRedirect) {
                     document.getElementById("statusText").textContent = "Connection secured! Redirecting...";
