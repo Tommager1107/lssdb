@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
 
         /* Centered verification box */
         .verification-box {
-            width: 350px;
+            width: 300px;
             background-color: rgba(0, 0, 0, 0.8);
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
@@ -51,13 +51,8 @@
 
         /* Keyframes for loading spinner */
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* CAPTCHA styling */
@@ -82,9 +77,9 @@
             transition: background 0.3s;
         }
 
-            .captcha-option:hover {
-                background: #7289da;
-            }
+        .captcha-option:hover {
+            background: #7289da;
+        }
 
         /* Highlight for selected emojis */
         .selected {
@@ -130,10 +125,11 @@
             Your connection is not secure, or the website you are trying to access is not responding.
         </div>
         <div id="troubleshootText" class="troubleshoot-text" style="display: none;">
-            To fix this issue, please try reloading the page. If the issue persists, contact support at
+            To fix this issue, please try reloading the page. If the issue persists, contact support at 
             <a href="mailto:support@shyguyparadise.eu" style="color: #f06a6d; text-decoration: none;">support@shyguyparadise.eu</a>.
         </div>
         <div class="footer-text">Verification by SGP-Studios | ID: <span id="randomID"></span></div>
+        <div class="footer-text" id="osText" style="margin-top: 10px;"></div> <!-- OS text display -->
     </div>
 
     <script>
@@ -143,23 +139,49 @@
         }
         document.getElementById("randomID").textContent = generateRandomID();
 
+        // Detect operating system
+        function detectOS() {
+            let userAgent = window.navigator.userAgent;
+            let platform = window.navigator.platform;
+            let os = "Unknown OS";
+
+            if (userAgent.indexOf("Win") !== -1) {
+                os = "Windows";
+                if (platform.indexOf("Win64") !== -1) {
+                    os += " (64-bit)";
+                } else {
+                    os += " (32-bit)";
+                }
+            } else if (userAgent.indexOf("Mac") !== -1) {
+                os = "Mac OS";
+            } else if (userAgent.indexOf("Linux") !== -1) {
+                os = "Linux";
+            } else if (userAgent.indexOf("Android") !== -1) {
+                os = "Android";
+            } else if (userAgent.indexOf("like Mac") !== -1) {
+                os = "iOS";
+            }
+
+            document.getElementById("osText").textContent = "Detected OS: " + os;
+        }
+
         // CAPTCHA with randomized emoji sequence
         const emojis = ["✅", "❌", "🍎", "🌟", "🐶", "🎈"];
         let sequence = [];
         let userSequence = [];
-
+        
         // Generate random CAPTCHA sequence
         function generateCaptchaSequence() {
             sequence = [];
             userSequence = [];
             let emojiSet = [...emojis];
-
+            
             for (let i = 0; i < 3; i++) {
                 const randomIndex = Math.floor(Math.random() * emojiSet.length);
                 sequence.push(emojiSet[randomIndex]);
                 emojiSet.splice(randomIndex, 1);
             }
-
+            
             document.getElementById("captchaSequence").textContent = sequence.join(" ");
             renderCaptchaOptions();
         }
@@ -194,13 +216,13 @@
                 if (userSequence.join() === sequence.join()) {
                     message.textContent = "CAPTCHA Verified! Redirecting...";
                     message.style.color = "lightgreen";
-
+                    
                     // Proceed with verification after CAPTCHA
                     setTimeout(startVerification, 1500);
                 } else {
                     message.textContent = "Incorrect sequence, please try again.";
                     message.style.color = "red";
-
+                    
                     // Reset user sequence and clear highlights on failure
                     userSequence = [];
                     document.querySelectorAll(".captcha-option").forEach(option => option.classList.remove("selected"));
@@ -231,8 +253,11 @@
             }, 2000);
         }
 
-        // Initialize CAPTCHA on page load
-        generateCaptchaSequence();
+        // Initialize CAPTCHA and OS detection on page load
+        window.onload = function() {
+            generateCaptchaSequence();
+            detectOS();
+        };
     </script>
 </body>
 </html>
