@@ -21,7 +21,7 @@
 
         /* Centered verification box */
         .verification-box {
-            width: 350px;
+            width: 300px;
             background-color: rgba(0, 0, 0, 0.8);
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
@@ -39,6 +39,7 @@
             margin-bottom: 10px;
         }
 
+        /* Loader styling */
         .loader {
             border: 4px solid rgba(255, 255, 255, 0.3);
             border-top: 4px solid #e8e8e8;
@@ -53,38 +54,6 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        /* CAPTCHA styling */
-        .captcha-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .captcha-options {
-            display: flex;
-            justify-content: space-around;
-            margin: 15px 0;
-        }
-
-        .captcha-option {
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-
-        .captcha-option:hover {
-            background: #7289da;
-        }
-
-        /* Highlight for selected emojis */
-        .selected {
-            background: #4CAF50;
-            color: white;
         }
 
         /* Footer with ID and verification message */
@@ -111,16 +80,10 @@
 </head>
 <body>
     <div class="verification-box">
-        <div id="statusText" class="status-text">Please complete the CAPTCHA</div>
-        <div class="captcha-container" id="captchaContainer">
-            <p>Select the emojis in this order:</p>
-            <div id="captchaSequence" style="margin-bottom: 10px;"></div>
-            <div class="captcha-options" id="captchaOptions"></div>
-            <p id="captchaMessage"></p>
-        </div>
+        <div id="statusText" class="status-text">Securing your connection...</div>
+        <div class="loader" id="loader" style="display: block;"></div>
 
-        <!-- Loader and Error Message -->
-        <div class="loader" id="loader" style="display: none;"></div>
+        <!-- Error Message -->
         <div id="errorMessage" class="error-message" style="display: none;">
             Your connection is not secure, or the website you are trying to access is not responding.
         </div>
@@ -165,98 +128,29 @@
             document.getElementById("osText").textContent = "Detected OS: " + os;
         }
 
-        // CAPTCHA with randomized emoji sequence
-        const emojis = ["✅", "❌", "🍎", "🌟", "🐶", "🎈"];
-        let sequence = [];
-        let userSequence = [];
-        
-        // Generate random CAPTCHA sequence
-        function generateCaptchaSequence() {
-            sequence = [];
-            userSequence = [];
-            let emojiSet = [...emojis];
-            
-            for (let i = 0; i < 3; i++) {
-                const randomIndex = Math.floor(Math.random() * emojiSet.length);
-                sequence.push(emojiSet[randomIndex]);
-                emojiSet.splice(randomIndex, 1);
-            }
-            
-            document.getElementById("captchaSequence").textContent = sequence.join(" ");
-            renderCaptchaOptions();
-        }
-
-        // Display emojis for user selection
-        function renderCaptchaOptions() {
-            const captchaOptions = document.getElementById("captchaOptions");
-            captchaOptions.innerHTML = "";
-            emojis.forEach(emoji => {
-                const emojiElement = document.createElement("div");
-                emojiElement.className = "captcha-option";
-                emojiElement.textContent = emoji;
-                emojiElement.onclick = () => handleEmojiClick(emojiElement, emoji);
-                captchaOptions.appendChild(emojiElement);
-            });
-        }
-
-        // Handle emoji selection and apply highlight
-        function handleEmojiClick(emojiElement, emoji) {
-            if (!emojiElement.classList.contains("selected")) {
-                emojiElement.classList.add("selected"); // Add highlight
-                userSequence.push(emoji);
-                checkCaptcha();
-            }
-        }
-
-        // Check if CAPTCHA is solved correctly
-        function checkCaptcha() {
-            const message = document.getElementById("captchaMessage");
-
-            if (userSequence.length === sequence.length) {
-                if (userSequence.join() === sequence.join()) {
-                    message.textContent = "CAPTCHA Verified! Redirecting...";
-                    message.style.color = "lightgreen";
-                    
-                    // Proceed with verification after CAPTCHA
-                    setTimeout(startVerification, 1500);
-                } else {
-                    message.textContent = "Incorrect sequence, please try again.";
-                    message.style.color = "red";
-                    
-                    // Reset user sequence and clear highlights on failure
-                    userSequence = [];
-                    document.querySelectorAll(".captcha-option").forEach(option => option.classList.remove("selected"));
-                }
-            }
-        }
-
-        // Start verification process after CAPTCHA
+        // Start verification process
         function startVerification() {
-            document.getElementById("captchaContainer").style.display = "none";
-            document.getElementById("statusText").textContent = "Checking if your connection is secure...";
-            document.getElementById("loader").style.display = "block";
-
             setTimeout(function () {
-                let shouldRedirect = Math.random() < 0.5;
+                let shouldRedirect = Math.random() < 0.5; // Simulate success or failure
+                document.getElementById("loader").style.display = "none"; // Hide loader
                 if (shouldRedirect) {
-                    document.getElementById("statusText").textContent = "Redirecting...";
+                    document.getElementById("statusText").textContent = "Connection secured! Redirecting...";
                     setTimeout(function () {
                         localStorage.setItem("verified", "true");
-                        window.location.href = "index.html";
+                        window.location.href = "index.html"; // Redirect after securing connection
                     }, 2000);
                 } else {
-                    document.getElementById("statusText").style.display = "none";
-                    document.getElementById("loader").style.display = "none";
+                    document.getElementById("statusText").textContent = "Connection failed!";
                     document.getElementById("errorMessage").style.display = "block";
                     document.getElementById("troubleshootText").style.display = "block";
                 }
-            }, 2000);
+            }, 2000); // Simulate verification duration
         }
 
-        // Initialize CAPTCHA and OS detection on page load
+        // Initialize OS detection and start verification on page load
         window.onload = function() {
-            generateCaptchaSequence();
             detectOS();
+            startVerification();
         };
     </script>
 </body>
