@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Version Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMh8Zl6fd3BzBb4lZ/o5Zm/p4gT/0gWJw5HhYg" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto; /* Allow vertical scrolling */
+        }
+
+        header {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #1c1c1c;
+            box-shadow: 0 2px 10px rgba(0, 191, 255, 0.5);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            color: #00bfff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #00bfff;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+            .download-button:hover {
+                background-color: #0099cc;
+            }
+
+        .documentation {
+            margin: 20px 0;
+            line-height: 1.6;
+            width: 100%;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #00bfff;
+            color: #fff;
+            margin-top: 20px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Additional styles */
+        h3 {
+            margin-top: 20px;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Download the Professional Version</h2>
+        <p>Welcome to the professional version of our software! This version offers advanced features and tools designed for professionals in the field. Below you can find the download link and comprehensive documentation.</p>
+
+        <a href="path/to/professional-version.zip" class="download-button" download>Download Professional Version</a>
+
+        <h3>Alternative Download Method:</h3>
+        <p>You can also use the following Windows PowerShell command to download the file to your desired directory:</p>
+        <pre>
+            cd <your-directory>
+            Invoke-WebRequest -Uri "https://github.com/your-repo/professional-version.zip" -OutFile "professional-version.zip"
+        </pre>
+        <p>Replace <code>&lt;your-directory&gt;</code> with the directory path where you want to save the file.</p>
+
+        <div class="documentation">
+            <h2>Documentation</h2>
+            <p>This documentation covers all features and functionalities available in the professional version:</p>
+            <h3>Features:</h3>
+            <ul>
+                <li><strong>Advanced Analytics:</strong> Gain deeper insights into your data.</li>
+                <li><strong>Custom Reports:</strong> Generate customized reports tailored to your needs.</li>
+                <li><strong>User Management:</strong> Manage user roles and permissions efficiently.</li>
+                <li><strong>Real-time Updates:</strong> Stay updated with real-time notifications and alerts.</li>
+                <li><strong>Integration Support:</strong> Easily integrate with other tools and platforms.</li>
+            </ul>
+
+            <h3>Installation Instructions:</h3>
+            <ol>
+                <li>Download the professional version from the button above or using the PowerShell command.</li>
+                <li>Unzip the downloaded file.</li>
+                <li>Run the setup.exe file to begin installation.</li>
+                <li>Follow the on-screen instructions to complete the installation.</li>
+            </ol>
+
+            <h3>Usage Guidelines:</h3>
+            <p>After installation, you can access the application from your start menu. Here are some key features:</p>
+            <ul>
+                <li><strong>Dashboard:</strong> A centralized place to monitor all activities.</li>
+                <li><strong>Settings:</strong> Customize your experience according to your preferences.</li>
+                <li><strong>Help:</strong> Access the help section for tutorials and troubleshooting.</li>
+            </ul>
+
+            <h3>Support:</h3>
+            <p>If you encounter any issues, please contact our support team at <a href="mailto:support@example.com">support@example.com</a>.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
+</body>
+</html>

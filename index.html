@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSSDB - Local Storage System Database</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #3b2dff, #f06a6d);
+            color: #e8e8e8;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto; /* Allow vertical scrolling */
+        }
+
+
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header style */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+            .header h1 {
+                font-size: 3rem;
+                color: #00f0ff;
+            }
+
+                .header h1 span {
+                    color: #ffffff;
+                }
+
+        /* Card container */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        /* Individual Card style */
+        .card {
+            background-color: #1a1a1a;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(187, 134, 252, 0.5);
+            padding: 30px;
+            width: 350px;
+            height: 500px;
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+            .card h2 {
+                color: #03dac6;
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .card p {
+                color: #c5c5c5;
+                font-size: 1rem;
+                margin-top: 10px;
+            }
+
+            .card ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 10px 0;
+            }
+
+                .card ul li {
+                    margin-bottom: 5px;
+                }
+
+        /* Glowing effect */
+        .glow {
+            border-radius: 50%;
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(187, 134, 252, 0.6), transparent);
+            filter: blur(50px);
+            top: -50px;
+            right: -50px;
+            z-index: 0;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Button styles */
+        .download-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #bb86fc;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .download-button:hover {
+                background-color: #9f66d0;
+            }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #bb86fc;
+            width: 50%;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(187, 134, 252, 0.5);
+        }
+
+            .modal-content h3 {
+                color: #03dac6;
+                margin-bottom: 10px;
+            }
+
+            .modal-content p {
+                color: #c5c5c5;
+                margin-bottom: 20px;
+            }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .close-button, .accept-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .close-button {
+            background-color: #cf6679;
+            color: white;
+        }
+
+        .accept-button {
+            background-color: #03dac6;
+            color: white;
+        }
+
+        .close-button:hover {
+            background-color: #b0515c;
+        }
+
+        .accept-button:hover {
+            background-color: #02a197;
+        }
+
+        /* Provided by section */
+        .provided-by {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+            .provided-by span {
+                color: white;
+                font-size: 1.2rem;
+            }
+
+            .provided-by img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 80%;
+            margin: 50px auto;
+            border-collapse: collapse;
+        }
+
+            .comparison-table th, .comparison-table td {
+                border: 1px solid #bb86fc;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .comparison-table th {
+                background-color: #1a1a1a;
+                color: #bb86fc;
+            }
+
+            .comparison-table tr:nth-child(even) {
+                background-color: #2a2a2a;
+            }
+
+     
+        .faq-section {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+            .faq-section h2 {
+                color: #bb86fc;
+                margin-bottom: 20px;
+            }
+
+        .faq-item {
+            margin-bottom: 15px;
+        }
+
+        .faq-question {
+            color: #03dac6;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .faq-answer {
+            color: #c5c5c5;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+ 
+    <div class="provided-by">
+        <img src="image.png" alt="Logo">
+        <span>Provided by ShyGuyParadise STUDIOS</span>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>LSSDB <span>(</span>L<span>ocal</span> S<span>torage</span> S<span>ystem</span> D<span>atabase)</span></h1>
+            <h2>Efficient, Local, and Reliable Storage Solution</h2>
+        </div>
+
+        
+        <div class="cards-container">
+            <div class="card">
+                <div class="glow"></div>
+                <div class="card-content">
+                    <div>
+                        <h2>Personal Use</h2>
+                        <p>
+                            The Personal Version of LSSDB is designed for basic local storage needs. This version allows you to:
+                        </p>
+                        <ul>
+                            <li>Store files directly on your PC.</li>
+                            <li>Access data from another PC on the local network.</li>
+                            <li>Transfer data quickly and efficiently.</li>
+                        </ul>
+                    </div>
+                    <button class="download-button" onclick="window.location.href='da.html'">Download Personal</button>
+                </div>
+            </div>
+
+            <!-- Professional Version Card -->
+            <div class="card">
+                <div class="glow"></div>
+                <div class="card-content">
+                    <div>
+                        <h2>Professional Use</h2>
+                        <p>
+                            The Professional Version of LSSDB brings advanced features for professional environments. It includes:
+                        </p>
+                        <ul>
+                            <li>A server-side component for centralized storage.</li>
+                            <li>Data access from multiple local devices.</li>
+                            <li>High-speed data transfer across the local network.</li>
+                            <li>Enhanced security features for data integrity.</li>
+                        </ul>
+                    </div>
+                    <button class="download-button" onclick="window.location.href='dp.html'">Download Professional</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Section -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <h3 id="modalTitle">Download Confirmation</h3>
+                <p id="modalBody">Are you sure you want to download this version?</p>
+                <div class="modal-buttons">
+                    <button class="accept-button" onclick="confirmDownload()">Yes</button>
+                    <button class="close-button" onclick="closeModal()">No</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        
+        <h2>Version Comparison</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Amateur</th>
+                    <th>Professional</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>File Storage</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                </tr>
+                <tr>
+                    <td>Network Access</td>
+                    <td>✖</td>
+                    <td>✔</td>
+                </tr>
+                <tr>
+                    <td>Data Transfer Speed</td>
+                    <td>Moderate</td>
+                    <td>High</td>
+                </tr>
+                <tr>
+                    <td>Security Features</td>
+                    <td>✖</td>
+                    <td>✔</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">What is LSSDB?</div>
+                <div class="faq-answer">LSSDB stands for Local Storage System Database, a solution for local data management.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">How do I download the software?</div>
+                <div class="faq-answer">You can download the Amateur or Professional version by clicking the respective buttons above.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">Is there any support available?</div>
+                <div class="faq-answer">Yes, we provide support through our website and community forums.</div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    if (answer.style.display === "none" || answer.style.display === "") {
+    answer.style.display = "block";
+    } else {
+    answer.style.display = "none";
+    }
+    }
+
+    // Initialize FAQ answers to be hidden
+    document.querySelectorAll('.faq-answer').forEach(answer => {
+    answer.style.display = "none";
+    });
+
+        // Check if "verified" data is present in localStorage
+        if (!localStorage.getItem("verified")) {
+            // Redirect to verification page if "verified" is not set
+            window.location.href = "verification.html";
+        } else {
+            console.log("User is verified.");
+            // Remove the "verified" flag to require re-verification on next visit
+            localStorage.removeItem("verified");
+        }
+    </script>
+</body>
+</html>

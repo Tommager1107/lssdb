@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Version Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMh8Zl6fd3BzBb4lZ/o5Zm/p4gT/0gWJw5HhYg" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #3b2dff, #f06a6d);
+            color: #e8e8e8;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto; /* Allow vertical scrolling */
+        }
+
+        header {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #1c1c1c;
+            box-shadow: 0 2px 10px rgba(0, 191, 255, 0.5);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            color: #00bfff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #00bfff;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+            .download-button:hover {
+                background-color: #0099cc;
+            }
+
+        .documentation {
+            margin: 20px 0;
+            line-height: 1.6;
+            width: 100%;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #00bfff;
+            color: #fff;
+            margin-top: 20px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Additional styles */
+        h3 {
+            margin-top: 20px;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #1c1c1c;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #00bfff;
+            width: 50%;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+        }
+
+            .modal-content h3 {
+                color: #00bfff;
+                margin-bottom: 10px;
+            }
+
+            .modal-content p {
+                color: #b3b3b3;
+                margin-bottom: 20px;
+            }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .close-button, .accept-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .close-button {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        .accept-button {
+            background-color: #00bfff;
+            color: white;
+        }
+
+        .close-button:hover {
+            background-color: #e60000;
+        }
+
+        .accept-button:hover {
+            background-color: #0099cc;
+        }
+
+        /* Code block styles */
+        .code-block {
+            background-color: #2e2e2e;
+            border-radius: 5px;
+            padding: 10px;
+            color: #ffffff;
+            width: 100%;
+            overflow: auto; /* Ensure horizontal scrolling if necessary */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Download the Amateur Version</h2>
+        <p>Welcome to the amateur version of our software! This version offers basic features suitable for beginners. Below you can find the download link and comprehensive documentation.</p>
+
+        <a href="path/to/amateur-version.zip" class="download-button" download>Download Amateur Version</a>
+
+        <h3>Alternative Download Method</h3>
+        <p>You can also use PowerShell to download the amateur version. Follow these instructions:</p>
+
+        <h4>Using PowerShell:</h4>
+        <ol>
+            <li>Press <code>Win + X</code> and select <strong>Windows PowerShell</strong>.</li>
+            <li>
+                Change the directory to where you want to download the file by running:
+                <div class="code-block">
+                    cd "C:\path\to\your\directory"
+                </div>
+            </li>
+            <li>
+                Run the following command to download the amateur version:
+                <div class="code-block">
+                    Invoke-WebRequest -Uri "https://github.com/your-repo/amateur-version.zip" -OutFile "amateur-version.zip"
+                </div>
+            </li>
+            <li>Once the download is complete, unzip the downloaded file.</li>
+        </ol>
+
+        <div class="documentation">
+            <h2>Documentation</h2>
+            <p>This documentation covers all features and functionalities available in the amateur version:</p>
+            <h3>Features:</h3>
+            <ul>
+                <li><strong>User-Friendly Interface:</strong> Easy navigation for beginners.</li>
+                <li><strong>Basic Reports:</strong> Generate simple reports for your needs.</li>
+                <li><strong>Limited User Management:</strong> Manage basic user roles.</li>
+                <li><strong>Notifications:</strong> Receive essential alerts.</li>
+                <li><strong>Basic Integration:</strong> Limited support for integration with other tools.</li>
+            </ul>
+
+            <h3>Installation Instructions:</h3>
+            <ol>
+                <li>Download the amateur version from the button above.</li>
+                <li>Unzip the downloaded file.</li>
+                <li>Run the setup.exe file to begin installation.</li>
+                <li>Follow the on-screen instructions to complete the installation.</li>
+            </ol>
+
+            <h3>Usage Guidelines:</h3>
+            <p>After installation, you can access the application from your start menu. Here are some key features:</p>
+            <ul>
+                <li><strong>Dashboard:</strong> A simple interface to monitor your activities.</li>
+                <li><strong>Settings:</strong> Customize basic options according to your preferences.</li>
+                <li><strong>Help:</strong> Access the help section for basic tutorials and troubleshooting.</li>
+            </ul>
+
+            <h3>Support:</h3>
+            <p>If you encounter any issues, please contact our support team at <a href="mailto:support@example.com">support@example.com</a>.</p>
+        </div>
+    </div>
+
+</body>
+</html>
