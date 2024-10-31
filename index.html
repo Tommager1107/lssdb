@@ -260,7 +260,7 @@
                 background-color: #2a2a2a;
             }
 
-     
+
         .faq-section {
             width: 80%;
             margin: 50px auto;
@@ -288,11 +288,10 @@
             color: #c5c5c5;
             display: none;
         }
-
     </style>
 </head>
 <body>
- 
+
     <div class="provided-by">
         <img src="image.png" alt="Logo">
         <span>Provided by SGP STUDIOS</span>
@@ -303,8 +302,9 @@
             <h2>Efficient, Local, and Reliable Storage Solution</h2>
         </div>
 
-        
+
         <div class="cards-container">
+            <!-- Personal Use Card -->
             <div class="card">
                 <div class="glow"></div>
                 <div class="card-content">
@@ -323,7 +323,7 @@
                 </div>
             </div>
 
-            <!-- Professional Version Card -->
+            <!-- Professional Use Card -->
             <div class="card">
                 <div class="glow"></div>
                 <div class="card-content">
@@ -342,9 +342,8 @@
                     <button class="download-button" onclick="window.location.href='dp.html'">Download Professional</button>
                 </div>
             </div>
-        </div>
 
-        <div class="cards-container">
+            <!-- Android Version Card -->
             <div class="card">
                 <div class="glow"></div>
                 <div class="card-content">
@@ -354,14 +353,16 @@
                             The Android Version of LSSDB is designed for basic local storage needs. This version allows you to:
                         </p>
                         <ul>
-                            <li>Send files to PC</li>
+                            <li>Send files to PC.</li>
                             <li>Access data from another PC or Android device on the local network.</li>
                             <li>Transfer data quickly and efficiently.</li>
                         </ul>
                     </div>
-                    <button class="download-button" onclick="window.location.href='da.html'">Download Personal</button>
+                    <button class="download-button" onclick="window.location.href='da.html'">Download Android</button>
                 </div>
             </div>
+        </div>
+
 
         <!-- Modal Section -->
         <div id="myModal" class="modal">
@@ -377,7 +378,7 @@
         </div>
 
         <!-- Comparison Table -->
-        
+
         <h2>Version Comparison</h2>
         <table class="comparison-table">
             <thead>
@@ -428,30 +429,30 @@
             </div>
         </div>
     </div>
-    <script>
-    function toggleFAQ(element) {
-    const answer = element.nextElementSibling;
-    if (answer.style.display === "none" || answer.style.display === "") {
-    answer.style.display = "block";
-    } else {
-    answer.style.display = "none";
-    }
-    }
+        <script>
+            function toggleFAQ(element) {
+                const answer = element.nextElementSibling;
+                if (answer.style.display === "none" || answer.style.display === "") {
+                    answer.style.display = "block";
+                } else {
+                    answer.style.display = "none";
+                }
+            }
 
-    // Initialize FAQ answers to be hidden
-    document.querySelectorAll('.faq-answer').forEach(answer => {
-    answer.style.display = "none";
-    });
+            // Initialize FAQ answers to be hidden
+            document.querySelectorAll('.faq-answer').forEach(answer => {
+                answer.style.display = "none";
+            });
 
-        // Check if "verified" data is present in localStorage
-        if (!localStorage.getItem("verified")) {
-            // Redirect to verification page if "verified" is not set
-            window.location.href = "verification.html";
-        } else {
-            console.log("User is verified.");
-            // Remove the "verified" flag to require re-verification on next visit
-            localStorage.removeItem("verified");
-        }
-    </script>
+            // Check if "verified" data is present in localStorage
+            if (!localStorage.getItem("verified")) {
+                // Redirect to verification page if "verified" is not set
+                window.location.href = "verification.html";
+            } else {
+                console.log("User is verified.");
+                // Remove the "verified" flag to require re-verification on next visit
+                localStorage.removeItem("verified");
+            }
+        </script>
 </body>
 </html>
